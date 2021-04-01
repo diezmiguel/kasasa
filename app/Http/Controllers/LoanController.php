@@ -27,7 +27,7 @@ class LoanController extends Controller
         $validator = Validator::make($request->all(), $this->rules(), $this->messages());
 
         if ($validator->fails()) {
-            return response()->json(['msg' => $validator->messages(), 'success' => false]);
+            return response()->json(['msg' => $validator->messages(), 'success' => false], 400);
         }
         try {
             $loanModel = new Loan();
