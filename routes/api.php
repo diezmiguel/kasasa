@@ -12,13 +12,15 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
-Route::post('/loan/add', [
+Route::middleware(['authApi'])->group(function () {
+    Route::post(
+        '/loan/add',
+        [
 'uses' => 'LoanController@store', ]
-);
-Route::get('/loan/list', [
+    );
+    Route::get(
+        '/loan/list',
+        [
 'uses' => 'LoanController@list', ]
-);
-// Route::get('/loan/{id}', [
-// 'uses' => 'LoanController@ldetail']
-// );
+    );
+});

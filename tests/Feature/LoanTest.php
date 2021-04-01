@@ -22,7 +22,7 @@ class LoanTest extends TestCase
      */
     public function test_can_see_loans()
     {
-        $response = $this->get('/api/loan/list');
+        $response = $this->get('/api/loan/list', ['authToken' => env('SECRET_KEY')]);
 
         $response->assertStatus(200);
     }

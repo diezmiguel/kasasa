@@ -50,23 +50,34 @@ class LoanController extends Controller
         return response()->json($response, Constants::HTTP_RESOURCE_CREATED);
     }
 
+    /**
+     * lists all loans in the system,.
+     */
     public function list()
     {
         return response()->json(Loan::all());
     }
 
+    /**
+     * rules to be used in the validator.
+     */
     private function rules()
     {
         return [
             'name' => 'required',
+            'ssn' => 'required',
             'dob' => 'required|date_format:Y-m-d',
         ];
     }
 
+    /**
+     * Custome messages to be use with the validator.
+     */
     private function messages()
     {
         return [
             'name.required' => 'Name is required',
+            'ssn.required' => 'SSN is required',
             'dob.date_format' => 'Date format should be (yyyy-mm-dd)',
         ];
     }
