@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::middleware(['authApi'])->group(function () {
+Route::middleware(['auth.jwt'])->group(function () {
     Route::post(
         '/loan/add',
         [
@@ -24,3 +24,6 @@ Route::middleware(['authApi'])->group(function () {
 'uses' => 'LoanController@list', ]
     );
 });
+
+$router->post('register', 'AuthController@register');
+$router->post('login', 'AuthController@login');

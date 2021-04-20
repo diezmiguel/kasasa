@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Loan;
+use App\Services\LoanService;
 use App\Utils\Calculator;
 use App\Utils\Constants;
 use Illuminate\Http\Request;
@@ -14,9 +15,12 @@ class LoanController extends Controller
 {
     protected $calculate;
 
-    public function __construct(Calculator $calculator)
+    protected $loanService;
+
+    public function __construct(Calculator $calculator, LoanService $loanService)
     {
         $this->calculate = $calculator;
+        $this->loanService = $loanService;
     }
 
     /**
@@ -30,16 +34,8 @@ class LoanController extends Controller
             return response()->json(['msg' => $validator->messages(), 'success' => false], 400);
         }
         try {
-            $loanModel = new Loan();
-            $loanModel->name = $request->name;
-            $loanModel->ssn = $request->ssn;
-            $loanModel->dob = $request->dob;
-            $loanModel->loan_amount = $request->loan_amount;
-            $loanModel->rate = $request->rate;
-            $loanModel->type = $request->type;
-            $loanModel->term = $request->term;
-            $loanModel->apr = $this->calculate->Apr($request);
-            $loanModel->save();
+            $this->loanService->saveLoan($request);
+
             $response = ['msg' => Constants::SUCCESS_LOAN_ADDED, 'success' => true];
         } catch (\Exception $e) {
             Log::error('Error occurred:'.$e->getMessage());
