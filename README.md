@@ -14,7 +14,7 @@ Simple API service that will add a new loan  to the database and also retrieve  
  - GET /api/loan/list - return type JSON
  - POST /api/loan/add  - return type JSON.
 
-I have implemented JWT  auth token  that checks for a  the Bearer token in the header.z
+I have implemented JWT  auth token  that checks for a  the Bearer token in the header.
 
 ## UNIT TESTING
 I have created some unit testing as well as Feature tests. The tests are running in a different database specified in phpunit.xml. It is a clone one the real database. Below is the DDL to creaste the table in the testing database:
